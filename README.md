@@ -1,4 +1,5 @@
-# exemplos
+# Simply C++ - Exemplos
+
 Exemplos usados no site www.simplycpp.com
 
 -----

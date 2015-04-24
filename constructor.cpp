@@ -4,32 +4,32 @@
 using namespace std;
 
 template<typename T = int>
-class TesteCopy {
+class TestCopy {
 public:
 
     T val;
 
-    TesteCopy() {
+    TestCopy() {
         cout << "[CONSTR 1]" << endl;
         this->val = 0;
     }
 
-    TesteCopy(T val) {
+    TestCopy(T val) {
         cout << "[CONSTR 2:" << val << "]" << endl;
         this->val = val;
     }
 
-    TesteCopy(const TesteCopy &src) {
+    TestCopy(const TestCopy &src) {
         cout << "[COPY]" << endl;
         this->val = src.val;
     }
 
-    TesteCopy(TesteCopy &&src) {
+    TestCopy(TestCopy &&src) {
         cout << "[MOVE]" << endl;
         this->val = std::move(src.val);
     }
 
-    TesteCopy &operator =(const TesteCopy &src) {
+    TestCopy &operator =(const TestCopy &src) {
         cout << "[OP=" << src.val << "]" << endl;
         this->val = src.val;
     }
@@ -42,23 +42,23 @@ public:
 
 void runConstr() {
 
-	TesteCopy<> t1;
-	TesteCopy<> t2 {1};
-	TesteCopy<> t3 = t2;
-	TesteCopy<> t4 {t2};
-	TesteCopy<> t5 = TesteCopy<>{5};
-	TesteCopy<> t6 = {6};
-	TesteCopy<> t7 = 7;
+	TestCopy<> t1;
+	TestCopy<> t2 {1};
+	TestCopy<> t3 = t2;
+	TestCopy<> t4 {t2};
+	TestCopy<> t5 = TestCopy<>{5};
+	TestCopy<> t6 = {6};
+	TestCopy<> t7 = 7;
 	
 	t5.ts();
 	t1 = t3;
 	t1.ts();
-	t1 = TesteCopy<>{3};
+	t1 = TestCopy<>{3};
 
 	t3.ts();
 
-	vector<TesteCopy<>> tm;
-    tm.push_back(TesteCopy<>(99));
+	vector<TestCopy<>> tm;
+    tm.push_back(TestCopy<>(99));
     tm[0].ts();
 	
 }

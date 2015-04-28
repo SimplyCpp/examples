@@ -8,13 +8,13 @@ struct stop_watch final
 {
     stop_watch() : Start_(now()) {}
     
-    std::chrono::milliseconds elapsed_ms()
+    std::chrono::milliseconds elapsed_ms() const
     {
         using std::chrono::milliseconds;
         return std::chrono::duration_cast<milliseconds>(elapsed());
     }
     
-    std::chrono::nanoseconds elapsed_ns()
+    std::chrono::nanoseconds elapsed_ns() const
     {
         using std::chrono::nanoseconds;
         return std::chrono::duration_cast<nanoseconds>(elapsed());
@@ -31,7 +31,7 @@ private:
         return std::chrono::high_resolution_clock::now();
     }
     
-    std::chrono::duration<double> elapsed()
+    std::chrono::duration<double> elapsed() const
     {
         return now() - Start_;
     }

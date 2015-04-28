@@ -11,36 +11,36 @@ template<typename T = int>
 class TestCopy {
 public:
 
-    T val;
+	T val;
 
-    TestCopy() {
-        cout << "[CONSTR 1]" << endl;
-        this->val = 0;
-    }
+	TestCopy() {
+		cout << "[CONSTR 1]" << endl;
+		this->val = 0;
+	}
 
-    TestCopy(T val) {
-        cout << "[CONSTR 2:" << val << "]" << endl;
-        this->val = val;
-    }
+	TestCopy(T val) {
+		cout << "[CONSTR 2:" << val << "]" << endl;
+		this->val = val;
+	}
 
-    TestCopy(const TestCopy &src) {
-        cout << "[COPY]" << endl;
-        this->val = src.val;
-    }
+	TestCopy(const TestCopy &src) {
+		cout << "[COPY]" << endl;
+		this->val = src.val;
+	}
 
-    TestCopy(TestCopy &&src) {
-        cout << "[MOVE]" << endl;
-        this->val = std::move(src.val);
-    }
+	TestCopy(TestCopy &&src) {
+		cout << "[MOVE]" << endl;
+		this->val = std::move(src.val);
+	}
 
-    TestCopy &operator =(const TestCopy &src) {
-        cout << "[OP=" << src.val << "]" << endl;
-        this->val = src.val;
-    }
+	TestCopy &operator =(const TestCopy &src) {
+		cout << "[OP=" << src.val << "]" << endl;
+		this->val = src.val;
+	}
 
-    void ts() {
-        cout << val << "===============" << endl;
-    }
+	void ts() {
+		cout << val << "===============" << endl;
+	}
 
 };
 
@@ -53,7 +53,7 @@ void runConstr() {
 	TestCopy<> t5 = TestCopy<>{5};
 	TestCopy<> t6 = {6};
 	TestCopy<> t7 = 7;
-	
+
 	t5.ts();
 	t1 = t3;
 	t1.ts();
@@ -62,7 +62,7 @@ void runConstr() {
 	t3.ts();
 
 	vector<TestCopy<>> tm;
-    tm.push_back(TestCopy<>(99));
-    tm[0].ts();
-	
+	tm.push_back(TestCopy<>(99));
+	tm[0].ts();
+
 }

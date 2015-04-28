@@ -1,6 +1,6 @@
 //Sample provided by Fabio Galuppo
 //April 2015
-//www.simplycpp.com
+//http://www.simplycpp.com
 
 #include <chrono>
 

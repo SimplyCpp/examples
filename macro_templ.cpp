@@ -1,3 +1,7 @@
+//Sample provided by Thiago Massari Guedes
+//April 2015
+//http://www.simplycpp.com/
+
 #include <iostream>
 #include <algorithm>
 #include <vector>

@@ -8,10 +8,22 @@ struct stop_watch final
 {
     stop_watch() : Start_(now()) {}
     
+    std::chrono::seconds elapsed_s() const
+    {
+        using std::chrono::seconds;
+        return std::chrono::duration_cast<seconds>(elapsed());
+    }
+    
     std::chrono::milliseconds elapsed_ms() const
     {
         using std::chrono::milliseconds;
         return std::chrono::duration_cast<milliseconds>(elapsed());
+    }
+    
+    std::chrono::microseconds elapsed_us() const
+    {
+        using std::chrono::microseconds;
+        return std::chrono::duration_cast<microseconds>(elapsed());
     }
     
     std::chrono::nanoseconds elapsed_ns() const
@@ -64,13 +76,17 @@ int main()
     std::cout << "Elapsed time N = " << N1 << " total = " << total1 << " is " << m1 << " nanoseconds.\n";
     std::cout << "Elapsed time N = " << N2 << " total = " << total2 << " is " << m2 << " nanoseconds.\n";
     
+    std::cout << "Hello, World!\n";
+    auto m3 = sw.elapsed_us().count();
+    std::cout << "Elapsed time is " << m3 << " microseconds.\n";
+    
     sw.restart();
     
-    const int N3 = 1000;
-    for (int i = 0; i < N3 - 1; ++i) std::cout << "Simply C++ ";
+    const int N4 = 1000;
+    for (int i = 0; i < N4 - 1; ++i) std::cout << "Simply C++ ";
     std::cout << "Hello, World!\n";
-    auto m3 = sw.elapsed_ms().count();
-    std::cout << "Elapsed time is " << m3 << " microseconds.\n";
+    auto m4 = sw.elapsed_ms().count();
+    std::cout << "Elapsed time is " << m4 << " milliseconds.\n";
     
     return 0;
 }

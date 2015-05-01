@@ -94,7 +94,14 @@ void run_templ() {
 
 template<typename T, typename U>
 void fill2(T &v, U start, U step) {
-	generate(begin(v), end(v), [&start, &step]() { auto r = start; start += step; return r; }); 
+
+	for(auto &item : v) {
+		item = start;
+		start += step;
+	}
+
+	//alternative
+	//generate(begin(v), end(v), [&start, &step]() { auto r = start; start += step; return r; }); 
 }
 
 

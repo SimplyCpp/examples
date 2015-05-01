@@ -2,6 +2,12 @@
 //April 2015
 //http://www.simplycpp.com/
 
+#ifdef __EXAMPLE_PKG__
+#define EXAMPLE_MAIN(ex_name) int run_##ex_name ()
+#else
+#define EXAMPLE_MAIN(ex_name) int main(int argc, char *argv[])
+#endif
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -124,7 +130,7 @@ void run_templ_stl() {
 	cout << "sum: " << total << endl;	
 }
 
-int main() {
+EXAMPLE_MAIN(macro_templ) {
 
 	run_macro();     //C-style
 	run_templ();     //C++-style without stl

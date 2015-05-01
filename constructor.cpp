@@ -2,6 +2,12 @@
 //April 2015
 //http://www.simplycpp.com/
 
+#ifdef __EXAMPLE_PKG__
+#define EXAMPLE_MAIN(ex_name) int run_##ex_name ()
+#else
+#define EXAMPLE_MAIN(ex_name) int main(int argc, char *argv[])
+#endif
+	
 #include <iostream>
 #include <vector>
 
@@ -44,7 +50,8 @@ public:
 
 };
 
-void runConstr() {
+EXAMPLE_MAIN(constructor)
+{
 
 	TestCopy<> t1;
 	TestCopy<> t2 {1};

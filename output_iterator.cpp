@@ -92,7 +92,7 @@ namespace write_only
     }
 }
 
-int run_main()
+int main()
 {
     int xs[10];
     std::iota(xs, xs + 10, 1); //[xs, xs + 10) as Forward Iterator

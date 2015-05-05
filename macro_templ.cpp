@@ -67,9 +67,9 @@ void increment(T &t, const U &val) {
 	}
 }
 
-template<typename RET, typename T>
-RET accum(T &t) {
-	RET ret{};
+template<typename T>
+auto accum(T &t) { 
+	typename T::value_type ret{};
 	for(auto &item : t) {
 		ret += item;
 	}
@@ -84,20 +84,22 @@ void run_templ() {
 	increment(numbers, 1);
 	dump(numbers);
 	
-	int total = accum<int>(numbers);
+	int total = accum(numbers);
 	cout << "sum: " << total << endl;
 }
 
 template<typename T, typename U>
 void fill2(T &v, U start, U step) {
 
-	for(auto &item : v) {
-		item = start;
-		start += step;
-	}
+	*begin(v) = start;
+	generate(begin(v)+1, end(v), [&start, &step]() { return start += step; }); 
 
-	//alternative
-	//generate(begin(v), end(v), [&start, &step]() { auto r = start; start += step; return r; }); 
+	//alternative - this is not a proper std::fill, but a generate
+	// for(auto &item : v) {
+	// 	item = start;
+	// 	start += step;
+	// }
+
 }
 
 
@@ -112,9 +114,9 @@ void increment2(T &v, const U &val) {
 	for_each(begin(v), end(v), [&val](U &n) { n += val; });
 }
 
-template<typename RET, typename T>
-RET accum2(T &v) {
-	RET ret{};
+template<typename T>
+typename T::value_type accum2(T &v) {
+	typename T::value_type ret{};
 
 	//auto inside lamba, only in c++14
 	for_each(begin(v), end(v), [&ret](auto &val) { ret += val; });
@@ -129,7 +131,7 @@ void run_templ_stl() {
 	increment2(numbers, 1);
 	dump2(numbers);
 	
-	int total = accum2<int>(numbers);
+	int total = accum2(numbers);
 	cout << "sum: " << total << endl;	
 }
 

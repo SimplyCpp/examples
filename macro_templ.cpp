@@ -18,18 +18,18 @@ using namespace std;
 
 //Repare que aqui eu preciso ter operador []
 #define DUMP(v) { \
-	for(int i=0; i < v.size(); i++) \
+	for(size_t i=0; i < v.size(); i++) \
 		cout << v[i] << " "; \
 	cout << endl; \
 }
 
 #define INCREMENT(v, n) { \
-	for(int i=0; i < v.size(); i++) \
+	for(size_t i=0; i < v.size(); i++) \
 		v[i] += n; \
 }
 
 #define ACCUM(v, ret) { \
-	for(int i=0; i < v.size(); i++) \
+	for(size_t i=0; i < v.size(); i++) \
 		ret += v[i]; \
 }
 

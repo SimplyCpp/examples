@@ -118,7 +118,7 @@ template<typename T>
 typename T::value_type accum2(T &v) {
 	typename T::value_type ret{};
 
-	//auto inside lamba, only in c++14
+	//auto inside lambda, only in c++14
 	for_each(begin(v), end(v), [&ret](auto &val) { ret += val; });
 	return ret;
 }

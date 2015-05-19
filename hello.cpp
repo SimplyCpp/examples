@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 	printf("Fabio hopes you like the site !\n");
 	printf("Thiago hopes you like the site !\n");
 
-	//If it was real C++ (supposing you'd found a reason for
+	//If it was real C++ (supposing you found a reason for
 	//writing professionally a hello world program).
 	std::cout << "Hello from Fabio !" << std::endl;
 	std::cout << "Hello from Thiago !" << std::endl;

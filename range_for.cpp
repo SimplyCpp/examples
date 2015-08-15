@@ -1,3 +1,9 @@
+//Sample provided by Thiago Massari Guedes
+//August 2015
+//http://www.simplycpp.com/
+
+#include "example_main.h"
+
 #include <iostream>
 #include <map>
 
@@ -63,7 +69,8 @@ public:
 	
 };
 
-int main() {
+EXAMPLE_MAIN(range_for)
+{
 	
 	cout << "Getting data from 2015-03" << endl;
 	CashFlow flow;

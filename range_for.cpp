@@ -74,7 +74,7 @@ EXAMPLE_MAIN(range_for)
 	
 	cout << "Getting data from 2015-03" << endl;
 	CashFlow flow;
-	for(auto c : flow.getMonthlyFlow(2015, 03)) {
+	for(auto &c : flow.getMonthlyFlow(2015, 03)) {
 		cout << c.second.date << ": " << c.second.value << endl;
 	}
 	

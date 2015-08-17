@@ -58,7 +58,6 @@ public:
 	{
 		int kb = (year * 10000) + (month * 100) + 00;	
 		int ke = (year * 10000) + (month * 100) + 31;
-		cout << kb << " - " << ke << endl;
 		const auto b = _flow.lower_bound(kb);
 		if( b == _flow.end() ) {
 			return CashRange<CashMap>(_flow.cend(), _flow.cend());

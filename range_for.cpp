@@ -46,7 +46,7 @@ public:
 		for(int m=1; m < 8; m+=2) {
 			for(int d=1; d <= 30; d += 6) {
 				int dt = date+(m*100)+d;
-				Cash c; c.date = dt; (c.value = m + d * 10.0) / (double)(d*10-m);
+				Cash c; c.date = dt; c.value = (m + d * 10.0) / (double)(d*10-m);
 				_flow.insert( make_pair(dt, c) );
 			}			
 		}

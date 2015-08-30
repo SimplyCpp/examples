@@ -2,19 +2,19 @@
 
 using namespace std;
 
-void run(auto f, auto v) {
+//void run(auto f, auto v) {
+template<typename F, typename T>
+void run(F f, T v) {
 	cout << f(v) << endl;
 }
 
 template<typename T>
 class F {
-	T b;
+	T &_b;
 public:
-	F(T &b) {
-		this->b = b;
-	}
+	F(T &b) : _b(b) { }
 	auto operator()(T v) {
-		return v*b;		
+		return v * _b;		
 	}
 };
 

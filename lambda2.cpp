@@ -1,8 +1,16 @@
+//Sample provided by Thiago Massari Guedes
+//August 2015
+//http://www.simplycpp.com/
+
+#include "example_main.h"
+
 #include <iostream>
 
 using namespace std;
 
-void run(auto f, auto v) {
+//void run(auto f, auto v) {
+template<typename F, typename T>
+void run(F f, T v) {
 	cout << f(v) << endl;
 }
 

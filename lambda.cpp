@@ -1,3 +1,9 @@
+//Sample provided by Thiago Massari Guedes
+//August 2015
+//http://www.simplycpp.com/
+
+#include "example_main.h"
+
 #include <iostream>
 
 using namespace std;
@@ -18,7 +24,7 @@ public:
 	}
 };
 
-int main()
+EXAMPLE_MAIN(lambda)
 {
 	int a, b;
 	a = 1; b = 3;

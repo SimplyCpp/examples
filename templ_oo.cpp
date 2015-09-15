@@ -30,23 +30,23 @@ public:
 		_s += s;
 		return *this;
 	}
-	string_builder & add(const std::string &v) {
+	string_builder &add(const std::string &v) {
 		_check_size(v.size());
 		_s += v;
 		return *this;
 	}
-	string_builder & add(const char *v) {
+	string_builder &add(const char *v) {
 		_check_size(strlen(v));
 		_s += v;
 		return *this;
 	}
-	string_builder & add(double v) {
+	string_builder &add(double v) {
 		std::string s = std::to_string(v);
 		_check_size(s.size());
 		_s += s;
 		return *this;
 	}
-	string_builder & add(bool v) {
+	string_builder &add(bool v) {
 		std::string s = v?"Y":"N";
 		_check_size(s.size());
 		_s += s;

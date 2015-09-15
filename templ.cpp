@@ -8,57 +8,55 @@
 
 using namespace std;
 
-namespace Text_OO {
-	
-class string_builder {
-protected:
-	void _check_size(int size) {
-		if( size + _s.size() > _s.capacity() )
-			_s.reserve(_s.capacity() + _size);
-	}
+namespace Text {
 
-public:
+void _check_size(std::string &buffer, int size, int size_inc) {
+	if( size + buffer.size() > buffer.capacity() )
+		buffer.reserve(buffer.capacity() + size_inc);
+}
 
-	string_builder(int size = 128) {
-		if( size > 0 )
-			_s.reserve(size);
+namespace internal {
+	
+	//General implementation
+	template <typename T>
+	struct add {
+		add(std::string &buffer, T val, int size_inc) {
+			std::string s = std::to_string(val);
+			_check_size(buffer, s.size(), size_inc);
+			buffer += s;
+		}
+	};
+
+	//Specific implementations
+	template <>
+	struct add<const char *> {
+		add(std::string &buffer, const char * val, int size_inc) {
+			_check_size(buffer, strlen(val), size_inc);
+			buffer += val;
+		}
+	};
+
+	template <>
+	struct add<bool> {
+		add(std::string &buffer, bool val, int size_inc) {
+			string s = val?"Y":"N";
+			_check_size(buffer, s.size(), size_inc);
+			buffer += s;
+		}
+};
+}
+
+struct string_builder {
+
+	string_builder(int size = 128) : _size(size) {
+		if( size > 0 ) _s.reserve(size);
 	}
 	
-	string_builder &add(int v) {
-		std::string s = std::to_string(v);
-		_check_size(s.size());
-		_s += s;
+	template<typename T>
+	string_builder &add(T v) {
+		internal::add<T>(_s, v, _size);
 		return *this;
 	}
-	string_builder & add(const std::string &v) {
-		_check_size(v.size());
-		_s += v;
-		return *this;
-	}
-	string_builder & add(const char *v) {
-		_check_size(strlen(v));
-		_s += v;
-		return *this;
-	}
-	string_builder & add(double v) {
-		std::string s = std::to_string(v);
-		_check_size(s.size());
-		_s += s;
-		return *this;
-	}
-	string_builder & add(bool v) {
-		std::string s = v?"Y":"N";
-		_check_size(s.size());
-		_s += s;
-		return *this;
-	}
-	
-	//There are much more methods to implement
-	//string_builder &add(unsigned int v);
-	//string_builder &add(float v);
-	//string_builder &add(long long v);
-	//string_builder &add(unsigned long long v);
-	//.... And much more ....
 	
 	const std::string &str() {
 		return _s;
@@ -70,15 +68,16 @@ private:
 	
 };
 
-};
+}
 
 int main() {
 
-	using Text_OO::string_builder;
+	using Text::string_builder;
 	
 	string_builder s;
 	s.add(1).add(12.2).add("thiago ").add(true);
+	//s2.add(1).add(12.2).add(true);
 	cout << s.str() << endl;
-
+	
 	return 0;
 }

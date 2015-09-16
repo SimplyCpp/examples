@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include <cstring>
 
 using namespace std;
@@ -43,7 +44,7 @@ namespace internal {
 			_check_size(buffer, s.size(), size_inc);
 			buffer += s;
 		}
-};
+	};
 }
 
 struct string_builder {
@@ -70,6 +71,30 @@ private:
 
 }
 
+//Now I can add my own class to this string_builder add function
+struct LazyMessage {
+	std::string type;
+	int seq;
+	std::vector<std::string> entries;
+};
+
+namespace Text {
+namespace internal {
+
+	template <>
+	struct add<LazyMessage> {
+		add(std::string &buffer, LazyMessage &msg, int size_inc) {
+			std::string s = msg.type;
+			for(const auto &entry : msg.entries) {
+				s += " [" + entry + "]";
+			}
+			_check_size(buffer, s.size(), size_inc);
+			buffer += s;
+		}
+	};
+} //Namespace internal
+} //Namespace Text
+
 int main() {
 
 	using Text::string_builder;
@@ -77,6 +102,11 @@ int main() {
 	string_builder s;
 	s.add(1).add(12.2).add("thiago ").add(true);
 	//s2.add(1).add(12.2).add(true);
+	cout << s.str() << endl;
+
+	LazyMessage m;
+	m.type = "X"; m.seq = 10; m.entries = {"px=10.0,qty=200,side=0"};
+	s.add(" => ").add(m);
 	cout << s.str() << endl;
 	
 	return 0;

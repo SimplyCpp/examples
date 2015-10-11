@@ -95,7 +95,7 @@ namespace internal {
 } //Namespace internal
 } //Namespace Text
 
-int main() {
+EXAMPLE_MAIN(templ) {}
 
 	using Text::string_builder;
 	

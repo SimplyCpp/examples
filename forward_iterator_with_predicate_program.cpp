@@ -5,10 +5,10 @@
 //compile with clang++:
 //clang++ -Wall -O2 -std=c++11 -o forward_iterator_with_predicate_program.exe forward_iterator_with_predicate_program.cpp
 
-//compile g++:
+//compile with g++:
 //g++ -Wall -O2 -std=c++11 -o forward_iterator_with_predicate_program.exe forward_iterator_with_predicate_program.cpp
 
-//compile msvc:
+//compile with msvc:
 //cl.exe /Wall /EHsc /Ox forward_iterator_with_predicate_program.cpp /link /out:forward_iterator_with_predicate_program.exe
 
 #include "forward_iterator_with_predicate.hpp"

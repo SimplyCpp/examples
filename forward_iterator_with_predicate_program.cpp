@@ -58,7 +58,7 @@ void forward_iterator_with_predicate_run()
 	ys.resize(4);
 	std::copy(iwp.begin(), iwp.end(), ys.begin());
 
-	display(iwp);
+	display(ys);
 
 	std::vector<int> zs;
 	zs.resize(4);
@@ -76,7 +76,7 @@ void forward_iterator_with_predicate_run()
 	iwp.refresh();
 	std::copy(begin(iwp), end(iwp), begin(ws));
 
-	display(iwp);
+	display(ws);
 
 	std::transform(begin(iwp), end(iwp), begin(iwp), [](int i) { return i + 10; });
 	

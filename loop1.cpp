@@ -1,5 +1,5 @@
 //Sample provided by Thiago Massari Guedes
-//September 2015
+//October 2015
 //http://www.simplycpp.com/
 
 #include <iostream>

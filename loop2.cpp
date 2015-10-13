@@ -32,11 +32,14 @@ private:
 
 };
 
+//Positive end means [start:start+end)
+//Negative end means [start:size-end)
 template<typename T>
-range<T> wide_range(const T &cont, int start, int end) {
+range<T> narrow_range(const T &cont, int start, int end) {
 
 	int items = std::distance(cont.cbegin(), cont.cend());
 
+	//Checking for empty range
 	if( items == 0 || end == 0 ) 
 		return range<T>(cont.cend(), cont.cend());
 
@@ -47,6 +50,7 @@ range<T> wide_range(const T &cont, int start, int end) {
 		range_size = start-end;
 	}
 
+	//Do I have enough items ?
 	if( items <= range_size ) {
 		return range<T>(cont.cend(), cont.cend());
 	}
@@ -80,12 +84,12 @@ EXAMPLE_MAIN(loop2)
 	vector<Message> msgs {"MSG1","MSG2","MSG3","MSG4","MSG5"};
 	vector<Message> empty_msgs {};
 	
-	auto msgs_sub1 = wide_range(msgs, 1, -1); //[1:-1]
-	auto msgs_sub2 = wide_range(msgs, 1, 2);  //[1:2]
+	auto msgs_sub1 = narrow_range(msgs, 1, -1); //[1:-1]
+	auto msgs_sub2 = narrow_range(msgs, 1, 2);  //[1:2]
 	
-	auto msgs_sub3 = wide_range(msgs, 1, 5);  //Empty
-	auto msgs_sub4 = wide_range(msgs, 1, -5);  //Empty
-	auto msgs_sub5 = wide_range(empty_msgs, 1, -1);  //Empty
+	auto msgs_sub3 = narrow_range(msgs, 1, 5);  //Empty
+	auto msgs_sub4 = narrow_range(msgs, 1, -5);  //Empty
+	auto msgs_sub5 = narrow_range(empty_msgs, 1, -1);  //Empty
 
 	print1(msgs_sub1); //shows items 1, 2, 3
 	print2(msgs_sub1); //shows items 1, 2, 3

@@ -23,6 +23,10 @@ EXAMPLE_MAIN(loop1)
 	
 	vector<Message> msgs {"MSG1","MSG2","MSG3","MSG4","MSG5"};
 	
+	unsigned int a = -1;
+	printf("%u %X\n", a, a);
+
+	//First block - bad code. Don't try at home.
 	//How I found in the original code
 	int count = 1;
 	while (count < msgs.size() - 1)
@@ -33,9 +37,9 @@ EXAMPLE_MAIN(loop1)
 	}
 	cout << endl << "==========" << endl;
 
-	// Problemas:
-	// 1. Código com bug: msgs.size() - 1
-	// 2. msgs[nount] nao suporta offsets. 
+	// Problems:
+	// 1. Bug in code: msgs.size() - 1
+	// 2. msgs[count] doesn't support dinamic range. 
 	
 	//First possibility
 	for(auto it = msgs.cbegin(); it != msgs.cend(); it++) {

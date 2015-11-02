@@ -1,5 +1,5 @@
 //Sample provided by Fabio Galuppo
-//Octorber 2015
+//October 2015
 //http://www.simplycpp.com
 
 #include <iterator>

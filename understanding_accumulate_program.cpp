@@ -45,14 +45,14 @@ private:
 };
 
 //sum
-template<class InputIterator>
+template<typename InputIterator>
 inline typename InputIterator::value_type sum(InputIterator first, InputIterator last)
 {
     typename InputIterator::value_type init{};
 	return std::accumulate(first, last, init);
 }
 
-template<class Container>
+template<typename Container>
 inline typename Container::value_type sum(const Container& cont)
 {
 	typename Container::value_type init{};
@@ -60,7 +60,7 @@ inline typename Container::value_type sum(const Container& cont)
 }
 
 //fold/left fold
-template<class InputIterator, typename T, class Function>
+template<typename InputIterator, typename T, typename Function>
 T fold(InputIterator first, InputIterator last, T init, Function f) 
 {
 	T acc{ init };
@@ -73,7 +73,7 @@ T fold(InputIterator first, InputIterator last, T init, Function f)
 }
  
 //arithmetic progression (AP) or arithmetic sequence
-template<class InputIterator, typename T>
+template<typename InputIterator, typename T>
 void fill_ap(InputIterator first, InputIterator last, T first_term, T common_difference)
 {
 	T n{};
@@ -86,7 +86,7 @@ void fill_ap(InputIterator first, InputIterator last, T first_term, T common_dif
 }
 
 //geometric progression (GP) or geometric sequence
-template<class InputIterator, typename T>
+template<typename InputIterator, typename T>
 void fill_gp(InputIterator first, InputIterator last, T first_term, T common_ratio)
 {
 	T n{1};
@@ -98,7 +98,7 @@ void fill_gp(InputIterator first, InputIterator last, T first_term, T common_rat
 	}
 }
 
-template<class OutputIterator, typename T>
+template<typename OutputIterator, typename T>
 void unfold_ap(T value, T first_term, T common_difference, OutputIterator result)
 {
 	T n{};
@@ -113,7 +113,7 @@ void unfold_ap(T value, T first_term, T common_difference, OutputIterator result
 
 #include <iostream>
 
-template <class Iter>
+template <typename Iter>
 void display(Iter& iter)
 {
 	for (auto i : iter) std::cout << i << " ";

@@ -46,9 +46,10 @@ private:
 
 //sum
 template<class InputIterator>
-inline int sum(InputIterator first, InputIterator last)
+inline typename InputIterator::value_type sum(InputIterator first, InputIterator last)
 {
-	return std::accumulate(first, last, int());
+    typename InputIterator::value_type init{};
+	return std::accumulate(first, last, init);
 }
 
 template<class Container>

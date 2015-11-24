@@ -19,25 +19,25 @@
 #include <string>
 
 template<typename T>
-struct accumulate_with_predicate final
+struct accumulator_with_predicate final
 {
 	using UnaryPredicate = std::function<bool(T)>;
 	
-	explicit accumulate_with_predicate(T init, UnaryPredicate pred)
+	explicit accumulator_with_predicate(T init, UnaryPredicate pred)
 		: acc(init), pred(pred) {}
 
-	accumulate_with_predicate& operator+(const T& val)
+	accumulator_with_predicate& operator+(const T& val)
 	{
-		acc += pred(val) ? val : T();
+		acc += pred(val) ? val : T{};
 		return *this;
 	}
 
 	operator T() const { return acc; }
 
-	accumulate_with_predicate() = delete; //default-constructible	
-	accumulate_with_predicate(const accumulate_with_predicate&) = default; //copy-constructible
-	accumulate_with_predicate& operator=(const accumulate_with_predicate&) = default; //copy-assignable
-	~accumulate_with_predicate() = default; //destructor
+	accumulator_with_predicate() = delete; //default-constructible	
+	accumulator_with_predicate(const accumulator_with_predicate&) = default; //copy-constructible
+	accumulator_with_predicate& operator=(const accumulator_with_predicate&) = default; //copy-assignable
+	~accumulator_with_predicate() = default; //destructor
 
 private:
 	T acc;	
@@ -128,37 +128,39 @@ void understanding_accumulate_run()
 	std::array<int, 10> xs { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 	
 	int initial = 0;
-	int _final = std::accumulate(std::begin(xs), std::end(xs), initial);
-	std::cout << _final << "\n";
+	int total = std::accumulate(std::begin(xs), std::end(xs), initial);
+	std::cout << total << "\n";
+    
+    std::cout << (std::accumulate(std::begin(xs), std::end(xs), 0.0) / xs.size()) << "\n";
 
 	initial = 0;
-	_final = std::accumulate(std::begin(xs), std::begin(xs) + 6, 
-								accumulate_with_predicate<int>(initial, is_even));	
-	std::cout << _final << "\n";
+	total = std::accumulate(std::begin(xs), std::begin(xs) + 6, 
+								accumulator_with_predicate  <int>(initial, is_even));	
+	std::cout << total << "\n";
 
-	_final = sum(std::begin(xs), std::begin(xs) + 4);
-	std::cout << _final << "\n";
+	total = sum(std::begin(xs), std::begin(xs) + 4);
+	std::cout << total << "\n";
 
-	_final = sum(xs);
-	std::cout << _final << "\n";
+	total = sum(xs);
+	std::cout << total << "\n";
 
 	initial = 0;
-	_final = fold(std::begin(xs), std::begin(xs) + 5, initial, [](int acc, int x) { return acc + x; });
-	std::cout << _final << "\n";
+	total = fold(std::begin(xs), std::begin(xs) + 5, initial, [](int acc, int x) { return acc + x; });
+	std::cout << total << "\n";
 
 	initial = 1;
 	//4!
-	_final = fold(std::begin(xs), std::begin(xs) + 4, initial, [](int acc, int x) { return acc * x; });
-	std::cout << _final << "\n";
+	total = fold(std::begin(xs), std::begin(xs) + 4, initial, [](int acc, int x) { return acc * x; });
+	std::cout << total << "\n";
 
 	initial = 0;
-	_final = std::accumulate(std::begin(xs), std::end(xs), initial, std::plus<int>());
-	std::cout << _final << "\n";
+	total = std::accumulate(std::begin(xs), std::end(xs), initial, std::plus<int>());
+	std::cout << total << "\n";
 	
 	initial = 1;
 	//4!
-	_final = std::accumulate(std::begin(xs), std::begin(xs) + 4, initial, [](int acc, int x) { return acc * x; });
-	std::cout << _final << "\n";
+	total = std::accumulate(std::begin(xs), std::begin(xs) + 4, initial, [](int acc, int x) { return acc * x; });
+	std::cout << total << "\n";
 
 	bool equals = std::accumulate(xs.begin(), xs.end(), 0) == std::accumulate(xs.rbegin(), xs.rend(), 0);
 	std::cout << equals << "\n";
@@ -167,36 +169,36 @@ void understanding_accumulate_run()
 	
 	std::string s_initial = "";
 	//fold/left fold
-	std::string s_final = std::accumulate(ys.begin(), ys.end(), s_initial);
-	std::cout << s_final << "\n";
+	std::string s_total = std::accumulate(ys.begin(), ys.end(), s_initial);
+	std::cout << s_total << "\n";
 
 	s_initial = "";
 	//fold back/right fold
-	s_final = std::accumulate(ys.rbegin(), ys.rend(), s_initial);
-	std::cout << s_final << "\n";
+	s_total = std::accumulate(ys.rbegin(), ys.rend(), s_initial);
+	std::cout << s_total << "\n";
 
 	std::array<int, 10> zs;
 	fill_ap(zs.begin(), zs.end(), 2, 3);
 	display(zs);
 	
 	initial = 0;
-	_final = std::accumulate(zs.rbegin(), zs.rend(), initial);
-	std::cout << _final << "\n";
+	total = std::accumulate(zs.rbegin(), zs.rend(), initial);
+	std::cout << total << "\n";
 
 	std::vector<int> ws;
 	/*
 	int a = 2;
 	int d = 3;
 	int n = 0;
-	while (_final > 0)
+	while (total > 0)
 	{
 		int x = a + n * d;
 		ws.push_back(x);
-		_final -= x;
+		total -= x;
 		++n;
 	}
 	*/
-	unfold_ap(_final, 2, 3, std::back_inserter(ws));
+	unfold_ap(total, 2, 3, std::back_inserter(ws));
 	display(ws);
 	
 	fill_gp(zs.begin(), zs.end(), 2, 3);

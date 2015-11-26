@@ -162,7 +162,18 @@ void understanding_accumulate_run()
 	//4!
 	total = std::accumulate(std::begin(xs), std::begin(xs) + 4, initial, [](int acc, int x) { return acc * x; });
 	std::cout << total << "\n";
+	
+	//hash
+    	std::string plain_data = "Simply C++";
+    	size_t seed = 0;
+    	size_t mask = 0x7FFFFFFFFFFFFFFF;
+    	size_t N = 100; //some map to vector/array of size N
+    	size_t plain_data_hash = std::accumulate(std::begin(plain_data), std::end(plain_data), seed,
+        	                                        [](size_t hash, char c) { return (19 * hash + c); });
+    	std::cout << "'" << plain_data << "' hash is " << plain_data_hash 
+			<< " send to slot #" << ((plain_data_hash & mask) % N) << "\n";
 
+	//commutative
 	bool equals = std::accumulate(xs.begin(), xs.end(), 0) == std::accumulate(xs.rbegin(), xs.rend(), 0);
 	std::cout << equals << "\n";
 

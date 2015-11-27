@@ -169,7 +169,7 @@ void understanding_accumulate_run()
     	size_t mask = 0x7FFFFFFFFFFFFFFF;
     	size_t N = 100; //some map to vector/array of size N
     	size_t plain_data_hash = std::accumulate(std::begin(plain_data), std::end(plain_data), seed,
-        	                                        [](size_t hash, char c) { return (19 * hash + c); });
+        	                                        [](size_t hash, char c) { return (19 * hash + c) - hash; });
     	std::cout << "'" << plain_data << "' hash is " << plain_data_hash 
 			<< " send to slot #" << ((plain_data_hash & mask) % N) << "\n";
 

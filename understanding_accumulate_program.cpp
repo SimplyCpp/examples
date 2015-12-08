@@ -28,7 +28,7 @@ struct accumulator_with_predicate final
 
 	accumulator_with_predicate& operator+(const T& val)
 	{
-		acc += pred(val) ? val : T{};
+		if (pred(val)) acc += val;
 		return *this;
 	}
 

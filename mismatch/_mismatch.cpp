@@ -24,23 +24,23 @@
 
 void mismatch(const char* dic_path, std::istream& istr)
 {
-	std::unordered_set<std::string> dic;
-	
-	std::ifstream ifs;
-	ifs.open(dic_path, std::ifstream::in);
-	if (ifs.is_open())
-	{
-		std::string buffer;
-		while (std::getline(ifs, buffer))
-		{
-			dic.emplace(std::move(buffer));
-		}
-	}
+    std::unordered_set<std::string> dic;
+    
+    std::ifstream ifs;
+    ifs.open(dic_path, std::ifstream::in);
+    if (ifs.is_open())
+    {
+        std::string buffer;
+        while (std::getline(ifs, buffer))
+        {
+            dic.emplace(std::move(buffer));
+        }
+    }
     ifs.close();
 
-	if (!dic.empty())
-	{
-		std::string s;
+    if (!dic.empty())
+    {
+        std::string s;
         while (std::getline(istr, s))
         {
             if (dic.find(s) == dic.end())
@@ -48,25 +48,25 @@ void mismatch(const char* dic_path, std::istream& istr)
                 std::cout << s << std::endl;
             }
         }
-	}
+    }
 }
 
 int main(int argc, char* argv[])
 {
-	if (argc >= 3)
-	{
-		std::ifstream ifs;
-		ifs.open(argv[2], std::ifstream::in);
-		if (ifs.is_open())
-		{
-			mismatch(argv[1], ifs);
-		}
-		ifs.close();
-	}
-	else if (argc == 2)
-	{
-		mismatch(argv[1], std::cin);
-	}
+    if (argc >= 3)
+    {
+        std::ifstream ifs;
+        ifs.open(argv[2], std::ifstream::in);
+        if (ifs.is_open())
+        {
+            mismatch(argv[1], ifs);
+        }
+        ifs.close();
+    }
+    else if (argc == 2)
+    {
+        mismatch(argv[1], std::cin);
+    }
     else
     {
         std::cerr << "Dictionary is missing\n";

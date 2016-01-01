@@ -123,7 +123,7 @@ std::vector<std::string> mismatch(const char* dic_path, std::vector<std::string>
 
 void run(const char* dic_path, std::istream& is)
 {
-    for (auto x : mismatch(dic_path, unique(sort(lowercase(makewords(read_all_text(is)))))))
+    for (auto& x : mismatch(dic_path, unique(sort(lowercase(makewords(read_all_text(is)))))))
         std::cout << x << std::endl;
 }
 

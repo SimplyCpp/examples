@@ -18,8 +18,6 @@ inline std::string operator*(std::string s1, std::string s2)
     return s1 + s2;
 }
 
-#include <functional>
-
 template <typename T>
 struct f_pair { T x; T y; };
 
@@ -54,6 +52,7 @@ inline std::unordered_map<TKey, TValue> make_dic(typename std::unordered_map<TKe
 }
 
 #include <random>
+#include <functional>
 
 inline const std::string generate_ascii_random_string(std::string::size_type n)
 {

@@ -78,15 +78,18 @@ struct my_formatter {
 	}
 };
 
+template<Writer writer_policy, Formatter formatter_policy>
+auto make_logger(writer_policy &writer, formatter_policy formatter) -> log_writer<writer_policy, formatter_policy>
+{
+	return log_writer<writer_policy, formatter_policy>(writer, formatter);
+}
+
 int main() {
 	
-	//file_writer f("teste.log");
+	//file_writer out_writer("teste.log");
 	console_writer out_writer;
-	//log_writer<console_writer, std::function<string(const string&)>> logger(out_writer, dt_format);
-	log_writer<console_writer, std::function<decltype(dt_format)>> logger(out_writer, dt_format);
-	//my_formatter fmt;
-	//log_writer<console_writer, my_formatter> logger(out_writer, fmt);
-	
+	auto logger = make_logger(out_writer, dt_format);
+
 	logger.info("Starting...");
 	logger.error("Ouch!");
 	

@@ -83,7 +83,12 @@ int main() {
 	//file_writer f("teste.log");
 	console_writer out_writer;
 	//log_writer<console_writer, std::function<string(const string&)>> logger(out_writer, dt_format);
-	log_writer<console_writer, std::function<decltype(dt_format)>> logger(out_writer, dt_format);
+	//log_writer<console_writer, std::function<decltype(dt_format)>> logger(out_writer, dt_format);
+	auto l_fmt = [](const string& s) -> string {
+		return "--> " + s;
+	};
+	log_writer<console_writer, decltype(l_fmt)> logger(out_writer, l_fmt);
+	
 	//my_formatter fmt;
 	//log_writer<console_writer, my_formatter> logger(out_writer, fmt);
 	

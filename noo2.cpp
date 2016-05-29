@@ -12,16 +12,12 @@ namespace buffer_utils {
 		auto old = cbegin(data);
 		for(auto it = old; it != cend(data); ++it) {
 			if( *it == c ) {
-				T out_val;
-				std::copy( old, it, std::back_inserter(out_val));
-				ret.push_back( out_val ); 
+				ret.emplace_back( old, it ); 
 				old=it+1;
 			}
 		}
 		if( old != cend(data) ) { 
-			T out_val;
-			std::copy( old, cend(data), std::back_inserter(out_val));
-			ret.push_back( out_val ); 
+			ret.emplace_back( old, cend(data) ); 
 		}
 		return ret;
 	}

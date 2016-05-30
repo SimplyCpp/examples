@@ -8,7 +8,7 @@
 //PRE-PROCESSOR MACROS:
 //INT_RANDOM_UTIL_SLOTS_PER_THREAD    > 0	enables rand_int
 //DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD > 0	enables rand_double
-//RANDOM_UTIL_DEBUG							enables debug traces
+//RANDOM_UTIL_DEBUG				enables debug traces
 
 #ifndef INT_RANDOM_UTIL_SLOTS_PER_THREAD
 #define INT_RANDOM_UTIL_SLOTS_PER_THREAD 1

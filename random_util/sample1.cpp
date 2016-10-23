@@ -4,12 +4,12 @@
 
 #include "sample1.hpp"
 
-#include <iostream>
-
 #include <random>
 #include <functional>
 
 #include "random_util.hpp"
+
+#include <cstdio>
 
 int sample1_main()
 {

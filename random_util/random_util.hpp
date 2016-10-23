@@ -1,133 +1,75 @@
 //Sample provided by Fabio Galuppo 
-//May 2016
+//October 2016
 //http://www.simplycpp.com 
 
 #ifndef RANDOM_UTIL_HPP
 #define RANDOM_UTIL_HPP
 
-//PRE-PROCESSOR MACROS:
-//INT_RANDOM_UTIL_SLOTS_PER_THREAD    > 0	enables rand_int
-//DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD > 0	enables rand_double
-//RANDOM_UTIL_DEBUG							enables debug traces
-
-#ifndef INT_RANDOM_UTIL_SLOTS_PER_THREAD
-#define INT_RANDOM_UTIL_SLOTS_PER_THREAD 1
-#endif
-
-#ifndef DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD
-#define DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD 1
-#endif
-
-#if INT_RANDOM_UTIL_SLOTS_PER_THREAD > 0 || DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD > 0
 #include <random>
-#include <functional>
-#include <array>
-#include <cassert>
-
-#ifdef RANDOM_UTIL_DEBUG
-#include <iostream>
-#include <typeinfo>
-#include <thread>
-#endif
 
 namespace internals
 {
-	using random_engine = std::mt19937;
+	using random_engine = std::default_random_engine;
+	static thread_local random_engine current_engine;
 
-	thread_local random_engine tls_engine;
-
-	template<typename T = int, template <typename> class TDistribution = std::uniform_int>
-	struct rand_state final
+	inline random_engine::result_type rd()
 	{
-		rand_state() :
-			distr() { 
-#ifdef RANDOM_UTIL_DEBUG
-			std::cout << "tid #" << std::this_thread::get_id() << " " << typeid(T).name() << "\n"; //dbg
-#endif
+		return std::random_device{}();
+	}
+
+	inline random_engine& rand_engine()
+	{
+		static thread_local random_engine engine{ rd() };
+		return engine;
+	}
+
+	inline void seed_rand()
+	{
+		rand_engine().seed(rd());
+	}
+
+	inline void seed_rand(random_engine::result_type seed)
+	{
+		rand_engine().seed(seed);
+	}
+
+	struct rand_int_func
+	{
+		using int_distribution = std::uniform_int_distribution<int>;
+		int_distribution distribution;
+
+		int operator()()
+		{
+			return distribution(rand_engine());
 		}
 
-		rand_state(T min_value, T max_value) :
-			distr(min_value, max_value) {
-#ifdef RANDOM_UTIL_DEBUG
-			std::cout << "tid #" << std::this_thread::get_id() << " " << typeid(T).name() << "\n"; //dbg
-#endif
+		int operator()(int min_inclusive, int max_inclusive)
+		{
+			return distribution(rand_engine(), int_distribution::param_type{ min_inclusive, max_inclusive });
 		}
-
-		~rand_state() = default;
-
-		rand_state(const rand_state<T, TDistribution>&) = default;
-
-		rand_state<T, TDistribution>& operator=(const rand_state<T, TDistribution>&) = default;
-
-		T operator()() { return distr(tls_engine); }
-
-		T min() const { return distr.min(); }
-
-		T max() const { return distr.max(); }
-
-	private:
-		TDistribution<T> distr;		
 	};
 
-#if INT_RANDOM_UTIL_SLOTS_PER_THREAD > 0
-	using int_slots = std::array<rand_state<>, INT_RANDOM_UTIL_SLOTS_PER_THREAD>;
-	
-	thread_local int_slots tls_int_random_util;
-#endif
-
-#if DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD > 0
-	using double_rand_state = rand_state<double, std::uniform_real>;
-
-	using double_slots = std::array<double_rand_state, DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD>;
-
-	thread_local double_slots tls_double_random_util;	
-#endif
-
+	static thread_local rand_int_func rand_int;
 }
-#endif
 
-#if INT_RANDOM_UTIL_SLOTS_PER_THREAD > 0 || DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD > 0
-inline void seed_rand(size_t seed)
+inline void seed_rand()
 {
-	internals::tls_engine = internals::random_engine(seed);
-}
-#endif
-
-#if INT_RANDOM_UTIL_SLOTS_PER_THREAD > 0
-inline void range_rand_int(int min_inclusive, int max_inclusive, internals::int_slots::size_type slot)
-{
-	assert(slot < INT_RANDOM_UTIL_SLOTS_PER_THREAD);
-	internals::tls_int_random_util[slot] = internals::rand_state<>(min_inclusive, max_inclusive);
+	internals::seed_rand();
 }
 
-inline void range_rand_int(int min_inclusive, int max_inclusive)
+inline void seed_rand(internals::random_engine::result_type seed)
 {
-	range_rand_int(min_inclusive, max_inclusive, 0);
+	internals::seed_rand(seed);
 }
 
-inline int rand_int(internals::int_slots::size_type slot = 0)
+inline int rand_int()
 {
-	return internals::tls_int_random_util[slot].operator()();
-}
-#endif
-
-#if DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD > 0
-inline void range_rand_double(double min_inclusive, double max_exclusive, internals::double_slots::size_type slot)
-{
-	assert(slot < DOUBLE_RANDOM_UTIL_SLOTS_PER_THREAD);
-	assert(min_inclusive < max_exclusive);
-	internals::tls_double_random_util[slot] = internals::double_rand_state(min_inclusive, max_exclusive);
+	return internals::rand_int();
 }
 
-inline void range_rand_double(double min_inclusive, double max_exclusive)
+inline int rand_int(int min_inclusive, int max_inclusive)
 {
-	range_rand_double(min_inclusive, max_exclusive, 0);
+	return internals::rand_int(min_inclusive, max_inclusive);
 }
-
-inline double rand_double(internals::double_slots::size_type slot = 0)
-{
-	return internals::tls_double_random_util[slot].operator()();
-}
-#endif
 
 #endif /* RANDOM_UTIL_HPP */

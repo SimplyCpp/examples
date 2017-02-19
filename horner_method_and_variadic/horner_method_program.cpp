@@ -23,19 +23,19 @@ constexpr inline T axpy(T a, T x, T y)
 
 /* overload resolution */
 template <typename T>
-constexpr inline double ov_horner_method(T x, T arg0, T arg1)
+constexpr inline T ov_horner_method(T x, T arg0, T arg1)
 {
 	return axpy(x, arg1, arg0);
 }
 	
 template <typename T>
-constexpr inline double ov_horner_method(T x, T arg0, T arg1, T arg2)
+constexpr inline T ov_horner_method(T x, T arg0, T arg1, T arg2)
 {
 	return axpy(x, ov_horner_method(x, arg1, arg2), arg0);
 }
 
 template <typename T>
-constexpr inline double ov_horner_method(T x, T arg0, T arg1, T arg2, T arg3)
+constexpr inline T ov_horner_method(T x, T arg0, T arg1, T arg2, T arg3)
 {
 	return axpy(x, ov_horner_method(x, arg1, arg2, arg3), arg0);
 }
@@ -101,6 +101,11 @@ void display(double value, const char* delimiter = "\t", int width = 6)
 
 int main()
 {
+	double a = Horner<double, double>::apply(1.0, 2.0, 3.0);
+	double b = Horner<double, double, double>::apply(1.0, 2.0, 3.0, 4.0);
+	double c = horner_method(1.0, 2.0, 3.0, 4.0, 5.0);
+	int d = horner_method(1, 2, 3, 4, 5);
+	
 	//overload resolution
 	double ov0 = ov_horner_method(1.0, 2.0, 3.0);
 	double ov1 = ov_horner_method(2.0, 2.0, 3.0, 4.0);

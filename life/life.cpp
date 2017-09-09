@@ -43,7 +43,7 @@ struct matrix {
         return data[_get_pos(x,y)];
     }
     
-    int operator() (int x, int y) const {
+    const Type& operator() (int x, int y) const {
         return data[_get_pos(x,y)];
     }
     
@@ -171,7 +171,6 @@ matrix_view<T> get_surrounding(matrix<T> &data, int x, int y) {
 }
 
 void fill_random(matrix<int> &m) {
-    
     std::random_device rd;
     std::mt19937_64 generator(rd());
     std::uniform_int_distribution<int> distribution(0,1);
@@ -180,7 +179,6 @@ void fill_random(matrix<int> &m) {
     for(auto it = m.data.begin(); it != m.data.end(); ++it) {
         *it = dice_2_side();
     }
-    
 }
 
 //Used for debugging
@@ -198,11 +196,9 @@ void show_matrix(T &v) {
     std::cout << "\x1B[2J\x1B[H";
     for(int y=0; y < v.rows; ++y) {
         for(int x=0; x < v.cols; ++x) {
-            
             char c = ' ';
             if( v(x,y) > 9 ) c = '*';
             else if( v(x,y) > 0 ) c = '0' + v(x,y); 
-            
             std::cout << c;
         }
         std::cout << std::endl;
@@ -225,6 +221,7 @@ int main(int argc, char **argv) {
     matrix<int> v(cols, rows);
         
     fill_random(v);
+    //fill_walker(v);
     
     auto life = get_life(v);
     while(true) {

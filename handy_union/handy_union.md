@@ -35,8 +35,8 @@ O `handy_union` foi criado para compartilhar ou ter uma sobreposição entre um 
 ```cpp
 handy_union<unsigned int> x(0xFFEEDDCC);
 bool is_true = (x.bytes[3] == 0xFF) && 
-			   (x.bytes[2] == 0xEE) && 
-			   (x.bytes[1] == 0xDD) &&
+               (x.bytes[2] == 0xEE) && 
+               (x.bytes[1] == 0xDD) &&
                (x.bytes[0] == 0xCC);
 ```
 

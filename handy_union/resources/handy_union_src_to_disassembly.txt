@@ -1,0 +1,39 @@
+#include <cstddef>
+
+template<typename T>
+struct handy_union final
+{
+	handy_union() = default;
+	handy_union(const handy_union&) = default;
+	handy_union& operator=(const handy_union&) = default;
+	~handy_union() = default;
+	
+	handy_union(T value) : value(value) {}
+
+	constexpr std::size_t size() const { return sizeof(T); }
+
+	operator T() const { return value; }
+
+	union
+	{
+		unsigned char bytes[sizeof(T)];
+		T value;
+	};
+};
+
+#include <stdio.h>
+
+int main()
+{
+    handy_union<unsigned int> x(12345);
+    printf("%d %ul", x.value, x.bytes);
+
+    unsigned int y = 12345;
+    printf("%d %ul", y, &y);  
+
+    printf("%ul %ul", sizeof(x), sizeof(y));
+
+    handy_union<unsigned int> z;
+    z.bytes[0] = 1;
+    return z.value;
+}

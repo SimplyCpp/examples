@@ -96,6 +96,16 @@ std::cout.unsetf(std::ios::hex);
 
 ![msvc](https://github.com/SimplyCpp/examples/raw/master/handy_union/resources/handy_union_cl.png)
 
+###### _Zero-cost abstraction_
+
+A abstração do `handy_union` é custo zero, ou seja nada além do tamanho (`sizeof`) do tipo ocupa a memória. Podemos ver isso no _disassembly_ com o [Compiler Explorer](https://godbolt.org/) numa versão do código otimizado:
+
+![disassembly](https://github.com/SimplyCpp/examples/raw/master/handy_union/resources/handy_union_disassembly.png)
+
+Note a _zero-cost abstraction_ por duas relações na transformação do código para _assembly_:
+1. Na linha 34 as operações com `sizeof` no código **C++** a esquerda equivale as linhas 19 e 20 do _assembly_ a direita, ambas com 4 _bytes_ cada.
+2. As linhas 28 e 29 no código **C++** equivalem as linhas de 7 a 12 do _assembly_. As linhas 31 e 32 no código **C++** equivalem as linhas de 13 a 18 do _assembly_. Ou seja, a mesmas instruções com uma pequena variação na ordem, mas sem discrepância na associação com os registradores.
+
 ###### Referência
 http://en.cppreference.com/w/cpp/language/union
 

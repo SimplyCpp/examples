@@ -104,7 +104,7 @@ A abstração do `handy_union` é custo zero, ou seja, nada além do tamanho (`s
 
 Note a _zero-cost abstraction_ por duas relações na transformação do código para _assembly_:
 1. Na linha 34 as operações com `sizeof` no código **C++** a esquerda equivale as linhas 19 e 20 do _assembly_ a direita, ambas com 4 _bytes_ cada.
-2. As linhas 28 e 29 no código **C++** equivalem as linhas de 7 a 12 do _assembly_. As linhas 31 e 32 no código **C++** equivalem as linhas de 13 a 18 do _assembly_. Portanto, a mesmas instruções com uma pequena variação na ordem, mas sem discrepância na associação com os registradores.
+2. As linhas 28 e 29 no código **C++** equivalem as linhas de 7 a 12 do _assembly_. As linhas 31 e 32 no código **C++** equivalem as linhas de 13 a 18 do _assembly_. Portanto, as mesmas instruções com uma pequena variação na ordem, mas sem discrepância na associação com os registradores.
 
 ###### Referência
 http://en.cppreference.com/w/cpp/language/union

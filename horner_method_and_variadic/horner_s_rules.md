@@ -7,11 +7,11 @@ Neste post, o objetivo é mostrar a implementação do método de Horner utiliza
 
 O [método de Horner](https://pt.wikipedia.org/wiki/Esquema_de_Horner) é um algoritmo para transformar um polinômio em um monômio e deixá-lo computacionalmente eficiente. Por exemplo, trocando potência por um encadeamento de multiplicações, onde pode se explorar a caracteristicas de operações similares a [SAXPY](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_1). Um breve exemplo deste esquema é encontrado em [Horner’s Rule](http://mathworld.wolfram.com/HornersRule.html") na [Wolfram MathWorld](http://mathworld.wolfram.com/). Consistindo na transformação do polinômio:
 
-![polynomial](https://github.com/SimplyCpp/examples/tree/master/horner_method_and_variadic/resources/polynomial.png)
+![polynomial](https://github.com/SimplyCpp/examples/raw/master/horner_method_and_variadic/resources/polynomial.png)
 
 Em:
 
-![monomial](https://github.com/SimplyCpp/examples/tree/master/horner_method_and_variadic/resources/monomial.png)
+![monomial](https://github.com/SimplyCpp/examples/raw/master/horner_method_and_variadic/resources/monomial.png)
 
 **Implementação com _variadic arguments_**
 
@@ -109,7 +109,7 @@ axpy(1.0, axpy(1.0, axpy(1.0, 5.0, 4.0), 3.0), 2.0);
 
 Note que nesta implementação o polinômio de maior grau está a direita (último argumento). Mesmo sendo definido em termos de recursão, a implementação quando compilada em modo otimizado, eliminará as chamadas recursivas tornando tudo uma sequência inline, conforme demonstrado nas expansões anteriores. Dependendo da "agressividade" do otimizador uma expansão similar ao exemplo anterior se transforma em apenas uma única linha de código _assembly_:
 
-![horner_inline](https://github.com/SimplyCpp/examples/tree/master/horner_method_and_variadic/resources/horner_inline.png)
+![horner_inline](https://github.com/SimplyCpp/examples/raw/master/horner_method_and_variadic/resources/horner_inline.png)
 
 ###### Referências
 http://en.cppreference.com/w/cpp/language/variadic_arguments

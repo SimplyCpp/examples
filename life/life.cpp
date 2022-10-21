@@ -1,6 +1,6 @@
 //Sample provided by Thiago Massari Guedes
 //September 2017
-//http://www.simplycpp.com
+//https://thiagocafe.com/
 //
 //Compile: g++ -std=c++17 -o life life.cpp
 
